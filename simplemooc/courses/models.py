@@ -1,6 +1,6 @@
 from django.db import models
 
-class CoursesManager(models.Manager):
+class CourseManager(models.Manager):
 
 	def search(self, query):
 		
@@ -9,7 +9,7 @@ class CoursesManager(models.Manager):
 			models.Q(description__icontains=query)
 			)
 
-class Courses(models.Model):
+class Course(models.Model):
 	#tive que instalar um dependecia para biblioteca Pillow, no ubuntu  
 	#sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
 
@@ -29,4 +29,12 @@ class Courses(models.Model):
 	)
 	update_at = models.DateTimeField('Atualizado em', auto_now=True)
 		
-	objects = CoursesManager()
+	objects = CourseManager()
+
+	def __str__(self):
+		return self.name
+
+	class Meta:
+		verbose_name = 'Curso'
+		verbose_name_plural ='Cursos'
+		ordering = ['name']
